@@ -1,0 +1,37 @@
+﻿@page
+@using WebApplication2.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@(Html.DevExtreme()
+    .DataGrid<CollegeUserModel>()
+    .ID("Data_Grid")
+    .DataSource(m =>
+    m.RemoteController()
+    .LoadUrl(Url.Page("Index","ListUsers"))
+    .InsertUrl(Url.Page("Index","NewCollegeUser"))
+    .UpdateUrl(Url.Page("Index","UpdateUser"))
+    .Key("Id")
+
+    )
+    
+    
+    .ShowBorders(true)
+    .ColumnAutoWidth(true)
+    .Editing(s => s.AllowAdding(true).AllowUpdating(true))
+    .Selection(m => m.AllowSelectAll(true).Mode(SelectionMode.Single))
+    .Columns(m =>
+    {
+        
+        m.AddFor(s => s.Name);
+        m.AddFor(s => s.LastName);
+        m.AddFor(s => s.College);
+    }
+    
+    )
+
+
+
+)
